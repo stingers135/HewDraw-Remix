@@ -122,7 +122,7 @@ unsafe fn sound_throwlw(fighter: &mut L2CAgentBase) {
     }
     frame(lua_state, 34.0);
     if is_excute(fighter) {
-        (fighter, Hash40::new("se_common_kick_hit_l"));
+        PLAY_SE(fighter, Hash40::new("se_common_kick_hit_l"));
         PLAY_SE(fighter, Hash40::new("se_common_down_m_01"));
     }
 }
