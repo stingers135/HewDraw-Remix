@@ -1298,6 +1298,17 @@ impl BomaExt for BattleObjectModuleAccessor {
 
     unsafe fn is_parry_input(&mut self) -> bool {
         let buffer = if self.is_prev_status(*FIGHTER_STATUS_KIND_GUARD_DAMAGE) { 1 } else { 5 };
+        let snake_statuses = &[*FIGHTER_SNAKE_STATUS_KIND_SPECIAL_N_HOLD_AIR, *FIGHTER_SNAKE_STATUS_KIND_SPECIAL_N_HOLD_JUMP, 
+        *FIGHTER_SNAKE_STATUS_KIND_SPECIAL_N_HOLD_WAIT, *FIGHTER_SNAKE_STATUS_KIND_SPECIAL_N_HOLD_DASH_B, 
+        *FIGHTER_SNAKE_STATUS_KIND_SPECIAL_N_HOLD_DASH_F, *FIGHTER_SNAKE_STATUS_KIND_SPECIAL_N_HOLD_WALK_B, 
+        *FIGHTER_SNAKE_STATUS_KIND_SPECIAL_N_HOLD_WALK_F, *FIGHTER_SNAKE_STATUS_KIND_SPECIAL_N_HOLD_LANDING, 
+        *FIGHTER_SNAKE_STATUS_KIND_SPECIAL_N_HOLD_JUMP_SQUAT, *FIGHTER_SNAKE_STATUS_KIND_SPECIAL_N_HOLD_JUMP_AERIAL, 
+        *FIGHTER_SNAKE_STATUS_KIND_SPECIAL_N_HOLD_WALK_BRAKE_B, *FIGHTER_SNAKE_STATUS_KIND_SPECIAL_N_HOLD_WALK_BRAKE_F];
+
+        if self.is_status_one_of(snake_statuses) {
+            return None;
+        }
+
         return InputModule::get_trigger_count(self.object(), Buttons::Parry) < buffer;
     }
 }
